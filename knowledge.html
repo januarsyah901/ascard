@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Knowledge Base | BONGKAR ILUSI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&amp;family=Public+Sans:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#777777",
+                    "on-primary-fixed-variant": "#e2e2e2",
+                    "tertiary-container": "#757474",
+                    "on-tertiary-fixed-variant": "#e4e2e2",
+                    "background": "#f9f9f9",
+                    "error": "#ba1a1a",
+                    "on-primary": "#e2e2e2",
+                    "on-primary-fixed": "#ffffff",
+                    "inverse-on-surface": "#f0f1f1",
+                    "surface-tint": "#5e5e5e",
+                    "inverse-surface": "#2f3131",
+                    "primary-container": "#3b3b3b",
+                    "on-background": "#1a1c1c",
+                    "on-tertiary-container": "#ffffff",
+                    "surface": "#f9f9f9",
+                    "surface-dim": "#dadada",
+                    "surface-container-low": "#f3f3f4",
+                    "secondary": "#5f5e5e",
+                    "surface-variant": "#e2e2e2",
+                    "on-secondary-fixed-variant": "#3b3b3b",
+                    "on-surface": "#1a1c1c",
+                    "secondary-fixed": "#c8c6c6",
+                    "inverse-primary": "#c6c6c6",
+                    "on-tertiary": "#e4e2e2",
+                    "tertiary-fixed": "#5e5e5e",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eeeeee",
+                    "on-surface-variant": "#474747",
+                    "secondary-container": "#d6d4d3",
+                    "surface-container-high": "#e8e8e8",
+                    "on-tertiary-fixed": "#ffffff",
+                    "primary": "#000000",
+                    "outline-variant": "#c6c6c6",
+                    "surface-bright": "#f9f9f9",
+                    "tertiary": "#3b3b3b",
+                    "on-primary-container": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "primary-fixed-dim": "#474747",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#5e5e5e",
+                    "on-secondary-container": "#1b1c1c",
+                    "on-error-container": "#410002",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#acabab",
+                    "tertiary-fixed-dim": "#464747"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Public Sans"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #1a1c1c;
+            font-family: 'Public Sans', sans-serif;
+        }
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .ghost-border {
+            outline: 1px solid rgba(198, 198, 198, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 h-16 bg-white/80 dark:bg-black/80 backdrop-blur-xl flex justify-between items-center px-6 md:px-12 w-full mx-auto">
+<div class="text-xl font-black tracking-tighter text-black dark:text-white font-headline uppercase">
+            BONGKAR ILUSI
+        </div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-bold tracking-tighter uppercase Inter text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors" href="#">Simulation</a>
+<a class="font-bold tracking-tighter uppercase Inter text-black dark:text-white border-b-2 border-black dark:border-white pb-1" href="#">Knowledge Base</a>
+<a class="font-bold tracking-tighter uppercase Inter text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors" href="#">Intervention</a>
+<a class="font-bold tracking-tighter uppercase Inter text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors" href="#">FAQ</a>
+</div>
+<button class="bg-primary text-on-primary-fixed px-6 py-2 font-bold font-label uppercase text-xs tracking-widest hover:bg-primary-fixed-dim transition-all duration-200">
+            Get Help
+        </button>
+</nav>
+<main class="pt-24 pb-16 px-6 md:px-12 max-w-7xl mx-auto">
+<!-- Hero Header -->
+<header class="mb-16">
+<div class="inline-block bg-primary text-on-primary-fixed px-3 py-1 mb-6 font-label text-[10px] font-bold tracking-widest uppercase">
+                Empirical Monolith v1.0.4
+            </div>
+<h1 class="font-headline font-black text-6xl md:text-8xl tracking-tighter uppercase leading-none mb-8">
+                Knowledge <br/> Base
+            </h1>
+<div class="editorial-grid gap-6">
+<p class="col-span-12 md:col-span-6 font-body text-xl text-on-surface-variant leading-relaxed">
+                    Dekonstruksi mekanika perjudian melalui lensa matematika murni dan neurosains. Kami menyajikan data tanpa filter untuk membedah bagaimana ilusi kendali diciptakan.
+                </p>
+<div class="col-span-12 md:col-span-6 flex flex-wrap gap-2 items-end justify-start md:justify-end">
+<span class="px-4 py-2 bg-surface-container-highest font-label font-bold text-[11px] uppercase tracking-widest">Psikologi Judi</span>
+<span class="px-4 py-2 bg-surface-container font-label font-medium text-[11px] uppercase tracking-widest text-on-surface-variant">Matematika Mesin (RNG/RTP)</span>
+<span class="px-4 py-2 bg-surface-container font-label font-medium text-[11px] uppercase tracking-widest text-on-surface-variant">Dampak Finansial</span>
+</div>
+</div>
+</header>
+<!-- Feature Bento Grid -->
+<div class="grid grid-cols-12 gap-1 mb-16 bg-outline-variant/20">
+<!-- Main Featured Article -->
+<article class="col-span-12 md:col-span-8 bg-surface-container-lowest p-8 md:p-12 relative group overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-4 mb-6">
+<span class="font-label font-black text-[11px] uppercase tracking-[0.2em] text-primary">Featured Analysis</span>
+<div class="h-[1px] flex-grow bg-outline-variant/30"></div>
+<span class="font-label font-bold text-[11px] uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">schedule</span> 12 Min Read
+                        </span>
+</div>
+<h2 class="font-headline font-extrabold text-4xl md:text-5xl tracking-tighter uppercase mb-6 leading-tight group-hover:text-primary-fixed-dim transition-colors">
+                        Anatomi Kekalahan: Mengapa RTP 96% Adalah Kepastian Bangkrut
+                    </h2>
+<p class="font-body text-lg text-on-surface-variant mb-8 max-w-2xl">
+                        Eksplorasi mendalam mengenai hukum angka besar dan bagaimana 'House Edge' bekerja secara eksponensial terhadap saldo pemain dalam jangka panjang.
+                    </p>
+<div class="h-64 w-full bg-surface-container mb-8 flex items-center justify-center relative">
+<!-- Placeholder for Chart -->
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary to-transparent"></div>
+<div class="w-full h-full flex items-end justify-between px-12 pb-8">
+<div class="w-8 bg-primary" style="height: 90%;"></div>
+<div class="w-8 bg-neutral-400" style="height: 70%;"></div>
+<div class="w-8 bg-neutral-300" style="height: 55%;"></div>
+<div class="w-8 bg-neutral-200" style="height: 40%;"></div>
+<div class="w-8 bg-neutral-100" style="height: 25%;"></div>
+<div class="w-8 bg-neutral-50" style="height: 10%;"></div>
+</div>
+<div class="absolute top-4 left-6 font-label font-bold text-[10px] uppercase text-neutral-400">Model Probabilitas: Probabilitas Kebangkrutan vs Waktu</div>
+</div>
+<button class="font-label font-black text-xs uppercase tracking-widest border-b-2 border-primary pb-1">Baca Analisis Lengkap</button>
+</div>
+</article>
+<!-- Secondary Stat Block -->
+<aside class="col-span-12 md:col-span-4 bg-primary text-on-primary-fixed p-8 flex flex-col justify-between">
+<div>
+<h3 class="font-headline font-black text-2xl tracking-tighter uppercase mb-4">Statistik Realitas</h3>
+<div class="space-y-8 mt-8">
+<div>
+<span class="block font-headline font-extrabold text-5xl tracking-tighter">99.8%</span>
+<span class="block font-label text-[10px] uppercase tracking-widest mt-2 opacity-70">Pemain Slot Mengalami Kerugian Netto per Tahun</span>
+</div>
+<div>
+<span class="block font-headline font-extrabold text-5xl tracking-tighter">0.000001%</span>
+<span class="block font-label text-[10px] uppercase tracking-widest mt-2 opacity-70">Peluang Mendapatkan Jackpot Progresif Utama</span>
+</div>
+<div>
+<span class="block font-headline font-extrabold text-5xl tracking-tighter">1.4ms</span>
+<span class="block font-label text-[10px] uppercase tracking-widest mt-2 opacity-70">Waktu yang Dibutuhkan Otak untuk Memproses 'Near-Miss' sebagai Kemenangan</span>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-white/10">
+<p class="font-label text-[9px] uppercase tracking-widest opacity-50">Data Sumber: Clinical Lab Authority v1.0.4</p>
+</div>
+</aside>
+</div>
+<!-- Article Card Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-1 bg-outline-variant/20">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest p-8 flex flex-col group transition-all duration-300 hover:bg-surface-container-low">
+<div class="mb-6 overflow-hidden aspect-[4/3] bg-surface-container">
+<img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="Microscopic conceptual visualization of dopamine receptors in monochrome, medical scientific illustration style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBD-lmDp8ilS6c0OQbli3JwlduAeNCcUwoEBnYlOgz8-q6VXy517FZhNrYYbPX8BfriMw9eE9-4HOAxhnMgykLVEZgdVFJFeoGUeCTPXqCTBCObvMwIc8JXcB7p1KoW_rd5jlVlYPWIsg4dQYNAWk6yz1WIbGGSynogOJBzN2_QR5Gl-YuUFMMLrF0T_9JhgD-GFx-sWlUQZTt0KBvSe0GfDF_qbn1bh5yICo8tb89V8xU3qagiSbEycNUuyVw6lOIEUQbokguZqM5x"/>
+</div>
+<span class="font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Psikologi Judi</span>
+<h3 class="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight">Perangkap Dopamin: Mengapa Kekalahan Terasa Seperti Kemenangan</h3>
+<p class="font-body text-sm text-on-surface-variant mb-6 flex-grow">
+                    Bagaimana otak merespon 'Near-Miss' dan mengapa sistem penghargaan kita sering kali mengkhianati logika dasar.
+                </p>
+<div class="flex justify-between items-center pt-6 border-t border-outline-variant/10">
+<span class="font-label font-bold text-[10px] uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">timer</span> 8 MIN
+                    </span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest p-8 flex flex-col group transition-all duration-300 hover:bg-surface-container-low">
+<div class="mb-6 overflow-hidden aspect-[4/3] bg-surface-container">
+<img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="Abstract digital data stream of numbers and binary code in a clinical, structured monochrome grid" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKNc5sUaHhVl413xdjVLWCkjfTC2ytkyNT89iMpkrXhzGspw_KIaOxwTws3CNva_XLuxoOxMslYwlIVzHz0owHPYNQPNY5-GhSfjjl6xyrN3BPRZM5MKSXMqrpsqBkfIwlXQ5u0KeVaHAf6XeOimuzudWJuwmN4W9RvAmiM_ial3iYt_-ABpQ5TFTdeBlRthdQgbpInpdgKz5CoNJV9jN92Q17NYhPaGVOFtKFVrSxT3m8L_jeBFoMj_XhKKxqGhCqog5gBwzbjDqO"/>
+</div>
+<span class="font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Matematika Mesin</span>
+<h3 class="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight">Mitos RNG: Membongkar Pola yang Sebenarnya Tidak Ada</h3>
+<p class="font-body text-sm text-on-surface-variant mb-6 flex-grow">
+                    Penjelasan teknis tentang bagaimana Pseudo-Random Number Generators memastikan ketidakpastian yang terukur.
+                </p>
+<div class="flex justify-between items-center pt-6 border-t border-outline-variant/10">
+<span class="font-label font-bold text-[10px] uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">timer</span> 15 MIN
+                    </span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest p-8 flex flex-col group transition-all duration-300 hover:bg-surface-container-low">
+<div class="mb-6 overflow-hidden aspect-[4/3] bg-surface-container">
+<img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="A stark, minimalist close up of a ledger or bank statement with descending red indicators in monochrome" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALolpzeHUIW01hqV12ewTO7QA379kzRAbHgpIoWKXqLeAwyol4q6SljbZ3HKumAg5E17k0dGjJiSED2Vvmhpvd1h2onJeaCmOwXOyNxen0jpb8UvXh-UIJ_ilKHuSx23D7k7Y7TA1gjHDH97-fDLN39LEGzZWEXw0qJKZVeJKVkTpVk5v46NxloAXK-rPw8V6kymoRgKwca0SztnY31-fCPzcqNFrua0YyAM_zkDZND9NHyUK_CBpMzYlLBkI-B79DIUBpMziC77N2"/>
+</div>
+<span class="font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Dampak Finansial</span>
+<h3 class="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight">The Sunk Cost Fallacy: Mengejar Kerugian ke Titik Nol</h3>
+<p class="font-body text-sm text-on-surface-variant mb-6 flex-grow">
+                    Analisis ekonomi tentang mengapa pemain cenderung meningkatkan taruhan saat mengalami kerugian beruntun.
+                </p>
+<div class="flex justify-between items-center pt-6 border-t border-outline-variant/10">
+<span class="font-label font-bold text-[10px] uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">timer</span> 10 MIN
+                    </span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="bg-surface-container-lowest p-8 flex flex-col group transition-all duration-300 hover:bg-surface-container-low">
+<div class="mb-6 overflow-hidden aspect-[4/3] bg-surface-container flex items-center justify-center">
+<!-- Monochrome Chart Placeholder -->
+<div class="w-full h-full p-8 flex flex-col justify-end gap-1">
+<div class="w-full bg-primary/20 h-2"></div>
+<div class="w-full bg-primary/40 h-2"></div>
+<div class="w-full bg-primary/60 h-2"></div>
+<div class="w-full bg-primary/80 h-2"></div>
+<div class="w-full bg-primary h-2"></div>
+</div>
+</div>
+<span class="font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Matematika Mesin</span>
+<h3 class="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight">Volatilitas Tinggi vs Rendah: Memahami Varian</h3>
+<p class="font-body text-sm text-on-surface-variant mb-6 flex-grow">
+                    Bagaimana operator kasino mengatur 'sensasi' permainan melalui manipulasi standar deviasi.
+                </p>
+<div class="flex justify-between items-center pt-6 border-t border-outline-variant/10">
+<span class="font-label font-bold text-[10px] uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">timer</span> 7 MIN
+                    </span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</article>
+<!-- Card 5 -->
+<article class="bg-surface-container-lowest p-8 flex flex-col group transition-all duration-300 hover:bg-surface-container-low">
+<div class="mb-6 overflow-hidden aspect-[4/3] bg-surface-container">
+<img class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="Abstract brain scan visualization in high-contrast grayscale showing localized neural activity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY-5POrW39bOsdKWXpSAEs-gWq132K1c6G-O0SmezMPzY3SlnrWjB7IQSb_kjxjdiCAkYcedwuofkTflisABOn-ZDoimr2ufib1-LhJxZuc4_ZV-br7ULaiAsBArmxVFdQql57w9OKbV2DjIkVp8_xOk5i3kac2EifgmPeCss5FflnTXD6hQgNhes7fsaezoS3-_UPLdys_Lyo2sKQwMCoH6G3UJadBpJigtDvAX_wPao_wRIEGW599WHgAtKICT85MPuTmwyMDOjL"/>
+</div>
+<span class="font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Psikologi Judi</span>
+<h3 class="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight">Neurobiologi Adiksi: Saat Prefrontal Cortex Menyerah</h3>
+<p class="font-body text-sm text-on-surface-variant mb-6 flex-grow">
+                    Studi klinis tentang bagaimana paparan terus menerus terhadap stimulasi perjudian mengubah struktur fisik otak.
+                </p>
+<div class="flex justify-between items-center pt-6 border-t border-outline-variant/10">
+<span class="font-label font-bold text-[10px] uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">timer</span> 18 MIN
+                    </span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</article>
+<!-- Card 6 -->
+<article class="bg-surface-container-lowest p-8 flex flex-col group transition-all duration-300 hover:bg-surface-container-low">
+<div class="mb-6 overflow-hidden aspect-[4/3] bg-surface-container border border-outline-variant/20 flex flex-col items-center justify-center text-center p-6">
+<span class="material-symbols-outlined text-4xl mb-4 text-outline-variant">analytics</span>
+<p class="font-label text-[10px] uppercase tracking-[0.2em]">Live Data Simulation</p>
+</div>
+<span class="font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Matematika Mesin</span>
+<h3 class="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight">Kalkulator Kebangkrutan: Masukkan Data Anda</h3>
+<p class="font-body text-sm text-on-surface-variant mb-6 flex-grow">
+                    Alat interaktif untuk memprediksi berapa lama modal Anda akan bertahan berdasarkan RTP dan ukuran taruhan.
+                </p>
+<div class="flex justify-between items-center pt-6 border-t border-outline-variant/10">
+<span class="font-label font-bold text-[10px] uppercase tracking-widest flex items-center gap-2 text-error">
+<span class="material-symbols-outlined text-[14px]">analytics</span> INTERACTIVE
+                    </span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</article>
+</div>
+<!-- Newsletter / CTA -->
+<section class="mt-16 bg-surface-container-low p-12 flex flex-col md:flex-row items-center justify-between gap-8 border border-outline-variant/20">
+<div class="max-w-xl">
+<h2 class="font-headline font-black text-3xl tracking-tighter uppercase mb-4">Laporan Mingguan</h2>
+<p class="font-body text-on-surface-variant">Dapatkan ringkasan data empiris terbaru dan analisis industri langsung ke email Anda. Tanpa retorika, hanya data.</p>
+</div>
+<div class="w-full md:w-auto flex flex-col md:flex-row gap-0">
+<input class="bg-white border-none focus:ring-1 focus:ring-primary py-4 px-6 font-label text-xs tracking-widest min-w-[300px]" placeholder="ALAMAT EMAIL ANDA" type="email"/>
+<button class="bg-primary text-on-primary-fixed px-8 py-4 font-bold font-label uppercase text-xs tracking-widest hover:bg-primary-fixed-dim transition-colors">
+                    Berlangganan
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-black text-white w-full py-12 px-6 border-t-0">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto gap-8">
+<div class="font-black text-white font-headline tracking-tighter uppercase text-xl">
+                BONGKAR ILUSI
+            </div>
+<div class="flex gap-8">
+<a class="font-light tracking-widest text-[10px] uppercase Inter text-neutral-400 hover:text-white transition-colors" href="#">Terms of Inquiry</a>
+<a class="font-light tracking-widest text-[10px] uppercase Inter text-neutral-400 hover:text-white transition-colors" href="#">Methodology</a>
+<a class="font-light tracking-widest text-[10px] uppercase Inter text-neutral-400 hover:text-white transition-colors" href="#">Privacy Protocol</a>
+<a class="font-light tracking-widest text-[10px] uppercase Inter text-neutral-400 hover:text-white transition-colors" href="#">Contact Lab</a>
+</div>
+<p class="font-light tracking-widest text-[10px] uppercase Inter text-neutral-500">
+                © 2024 CLINICAL AUTHORITY. ALL RIGHTS RESERVED. EMPIRICAL MONOLITH DESIGN SYSTEM.
+            </p>
+</div>
+</footer>
+</body></html>

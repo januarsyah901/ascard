@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AsCard Versioning Strategy",
+  "description": "Configuration for semantic versioning and release management",
+  "version": "1.0.0",
+  "semanticVersioning": {
+    "enabled": true,
+    "format": "MAJOR.MINOR.PATCH",
+    "prerelease": false,
+    "examples": {
+      "major": "2.0.0",
+      "minor": "1.1.0",
+      "patch": "1.0.1",
+      "prerelease": "1.0.0-beta.1"
+    }
+  },
+  "versioning": {
+    "versionFiles": [
+      "package.json",
+      "VERSION"
+    ],
+    "tagFormat": "v{version}",
+    "tagAnnotated": true,
+    "pushToRemote": true,
+    "branch": "main"
+  },
+  "releaseStrategy": {
+    "types": {
+      "major": {
+        "description": "Breaking changes, incompatible API modifications",
+        "command": "npm run release:major",
+        "increment": "MAJOR"
+      },
+      "minor": {
+        "description": "New features, backward compatible",
+        "command": "npm run release:minor",
+        "increment": "MINOR"
+      },
+      "patch": {
+        "description": "Bug fixes, backward compatible",
+        "command": "npm run release:patch",
+        "increment": "PATCH"
+      }
+    }
+  },
+  "changelog": {
+    "file": "CHANGELOG.md",
+    "format": "Keep a Changelog",
+    "sections": [
+      "Added",
+      "Changed",
+      "Deprecated",
+      "Removed",
+      "Fixed",
+      "Security"
+    ]
+  },
+  "commitConventions": {
+    "enabled": true,
+    "format": "Conventional Commits",
+    "types": [
+      "feat",
+      "fix",
+      "docs",
+      "style",
+      "refactor",
+      "perf",
+      "test",
+      "chore"
+    ]
+  },
+  "documentation": {
+    "readme": "README.md",
+    "contributing": "CONTRIBUTING.md",
+    "release": "RELEASE.md",
+    "changelog": "CHANGELOG.md"
+  },
+  "tools": {
+    "linting": "eslint",
+    "buildTool": "vite",
+    "packageManager": "npm",
+    "versionManager": "npm version"
+  },
+  "preReleaseChecklist": {
+    "lint": "npm run lint",
+    "build": "npm run build",
+    "clean": true,
+    "noUncommittedChanges": true,
+    "updateChangelog": true,
+    "auditDependencies": false
+  },
+  "releaseNotes": {
+    "location": "GitHub Releases",
+    "template": "Release vX.X.X",
+    "includeChangelog": true,
+    "includeContributors": true
+  },
+  "currentVersion": "1.0.0",
+  "releaseHistory": {
+    "1.0.0": {
+      "date": "2026-04-21",
+      "type": "initial",
+      "description": "Initial release of AsCard"
+    }
+  }
+}
