@@ -47,8 +47,9 @@ export default function Navigation() {
           <Link to="/">BONGKAR ILUSI</Link>
         </div>
         <div className="hidden md:flex items-center gap-8">
+          <NavLink to="/" className={navLinkStyle}>{t.nav.home}</NavLink>
           <NavLink to="/simulation" className={navLinkStyle}>{t.nav.simulator}</NavLink>
-          <NavLink to="/knowledge-base" className={navLinkStyle}>{t.nav.library}</NavLink>
+          <NavLink to="/knowledge-base" className={navLinkStyle}>{t.nav.articles}</NavLink>
           <NavLink to="/intervention" className={navLinkStyle}>{t.nav.logic}</NavLink>
         </div>
         <div className="flex items-center gap-4">

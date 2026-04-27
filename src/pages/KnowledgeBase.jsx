@@ -1,13 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function KnowledgeBase() {
   const { t } = useLanguage();
+  const [dynamicArticles, setDynamicArticles] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch('http://localhost:5001/api/articles')
+      .then(res => res.json())
+      .then(data => {
+        setDynamicArticles(data.filter(a => a.published));
+      })
+      .catch(err => console.error('Error fetching articles:', err));
+  }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-surface">
+    <div className="min-h-screen flex flex-col bg-surface text-on-surface">
       <Navigation />
       <main className="flex-grow pt-24 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full">
         {/* Hero Header */}
@@ -31,7 +42,7 @@ export default function KnowledgeBase() {
         </header>
         
         {/* Feature Bento Grid */}
-        <div className="grid grid-cols-12 gap-1 mb-16 bg-outline-variant/20">
+        <div className="grid grid-cols-12 gap-1 mb-1 bg-outline-variant/20">
           {/* Main Featured Article */}
           <article className="col-span-12 md:col-span-8 bg-surface-container-lowest p-8 md:p-12 relative group overflow-hidden">
             <div className="relative z-10">
@@ -42,7 +53,7 @@ export default function KnowledgeBase() {
                   <span className="material-symbols-outlined text-sm">schedule</span> {t.knowledge.readTime}
                 </span>
               </div>
-              <h2 className="font-headline font-extrabold text-4xl md:text-5xl tracking-tighter uppercase mb-6 leading-tight group-hover:text-primary-fixed-dim transition-colors">
+              <h2 className="font-headline font-extrabold text-4xl md:text-5xl tracking-tighter uppercase mb-6 leading-tight group-hover:text-primary-fixed-dim transition-colors text-on-surface">
                 {t.knowledge.anatomyTitle}
               </h2>
               <p className="font-body text-lg text-on-surface-variant mb-8 max-w-2xl">
@@ -90,13 +101,13 @@ export default function KnowledgeBase() {
         </div>
         
         {/* Article Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-1 bg-outline-variant/20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-1 bg-outline-variant/20 mb-1">
           <article className="bg-surface-container-lowest p-8 flex flex-col group transition-all duration-300 hover:bg-surface-container-low">
             <div className="mb-6 overflow-hidden aspect-[4/3] bg-surface-container">
-              <img className="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-500" alt="Dopamine" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBD-lmDp8ilS6c0OQbli3JwlduAeNCcUwoEBnYlOgz8-q6VXy517FZhNrYYbPX8BfriMw9eE9-4HOAxhnMgykLVEZgdVFJFeoGUeCTPXqCTBCObvMwIc8JXcB7p1KoW_rd5jlVlYPWIsg4dQYNAWk6yz1WIbGGSynogOJBzN2_QR5Gl-YuUFMMLrF0T_9JhgD-GFx-sWlUQZTt0KBvSe0GfDF_qbn1bh5yICo8tb89V8xU3qagiSbEycNUuyVw6lOIEUQbokguZqM5x" />
+              <img className="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-500" alt="Dopamine" src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=800" />
             </div>
             <span className="font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">{t.knowledge.psychology}</span>
-            <h3 className="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight">{t.knowledge.dopamineTitle}</h3>
+            <h3 className="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight text-on-surface">{t.knowledge.dopamineTitle}</h3>
             <div className="flex justify-between items-center pt-6 border-t border-outline-variant/10 mt-auto">
               <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
             </div>
@@ -104,10 +115,10 @@ export default function KnowledgeBase() {
           
           <article className="bg-surface-container-lowest p-8 flex flex-col group transition-all duration-300 hover:bg-surface-container-low">
             <div className="mb-6 overflow-hidden aspect-[4/3] bg-surface-container">
-              <img className="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-500" alt="RNG" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKNc5sUaHhVl413xdjVLWCkjfTC2ytkyNT89iMpkrXhzGspw_KIaOxwTws3CNva_XLuxoOxMslYwlIVzHz0owHPYNQPNY5-GhSfjjl6xyrN3BPRZM5MKSXMqrpsqBkfIwlXQ5u0KeVaHAf6XeOimuzudWJuwmN4W9RvAmiM_ial3iYt_-ABpQ5TFTdeBlRthdQgbpInpdgKz5CoNJV9jN92Q17NYhPaGVOFtKFVrSxT3m8L_jeBFoMj_XhKKxqGhCqog5gBwzbjDqO" />
+              <img className="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-500" alt="RNG" src="https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=800" />
             </div>
             <span className="font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">{t.knowledge.math}</span>
-            <h3 className="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight">{t.knowledge.mythTitle}</h3>
+            <h3 className="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight text-on-surface">{t.knowledge.mythTitle}</h3>
             <div className="flex justify-between items-center pt-6 border-t border-outline-variant/10 mt-auto">
               <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
             </div>
@@ -115,15 +126,43 @@ export default function KnowledgeBase() {
           
           <article className="bg-surface-container-lowest p-8 flex flex-col group transition-all duration-300 hover:bg-surface-container-low">
             <div className="mb-6 overflow-hidden aspect-[4/3] bg-surface-container">
-              <img className="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-500" alt="Financial" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALolpzeHUIW01hqV12ewTO7QA379kzRAbHgpIoWKXqLeAwyol4q6SljbZ3HKumAg5E17k0dGjJiSED2Vvmhpvd1h2onJeaCmOwXOyNxen0jpb8UvXh-UIJ_ilKHuSx23D7k7Y7TA1gjHDH97-fDLN39LEGzZWEXw0qJKZVeJKVkTpVk5v46NxloAXK-rPw8V6kymoRgKwca0SztnY31-fCPzcqNFrua0YyAM_zkDZND9NHyUK_CBpMzYlLBkI-B79DIUBpMziC77N2" />
+              <img className="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-500" alt="Financial" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800" />
             </div>
             <span className="font-label font-bold text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">{t.knowledge.finance}</span>
-            <h3 className="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight">{t.knowledge.sunkCostTitle}</h3>
+            <h3 className="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight text-on-surface">{t.knowledge.sunkCostTitle}</h3>
             <div className="flex justify-between items-center pt-6 border-t border-outline-variant/10 mt-auto">
               <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
             </div>
           </article>
         </div>
+
+        {/* Dynamic Articles Grid */}
+        {dynamicArticles.length > 0 && (
+          <div className="mt-1">
+            <div className="bg-surface-container-highest p-4 mb-1">
+              <span className="font-label font-black text-[10px] uppercase tracking-[0.3em] text-primary">Latest From Clinical Authority</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 bg-outline-variant/20">
+              {dynamicArticles.map(article => (
+                <Link 
+                  key={article.id} 
+                  to={`/article/${article.id}`}
+                  className="bg-surface-container-lowest p-8 flex flex-col group transition-all duration-300 hover:bg-surface-container-low"
+                >
+                  <span className="font-label font-bold text-[10px] uppercase tracking-widest text-primary mb-2">{article.category || 'Clinical Insight'}</span>
+                  <h3 className="font-headline font-bold text-xl tracking-tight uppercase mb-4 leading-tight text-on-surface">{article.title}</h3>
+                  <p className="font-body text-sm text-on-surface-variant line-clamp-3 mb-6">
+                    {article.content}
+                  </p>
+                  <div className="flex justify-between items-center pt-6 border-t border-outline-variant/10 mt-auto">
+                    <span className="font-label font-black text-[10px] uppercase tracking-widest group-hover:text-primary transition-colors">Read Full Insight</span>
+                    <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </main>
       <Footer />
     </div>

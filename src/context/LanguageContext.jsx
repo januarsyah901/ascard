@@ -5,8 +5,9 @@ const LanguageContext = createContext();
 const translations = {
   en: {
     nav: {
+      home: "Home",
       simulator: "Simulator",
-      library: "Library",
+      articles: "Articles",
       logic: "Logic",
       getHelp: "Get Help",
     },
@@ -108,8 +109,9 @@ const translations = {
   },
   id: {
     nav: {
+      home: "Beranda",
       simulator: "Simulator",
-      library: "Pustaka",
+      articles: "Artikel",
       logic: "Logika",
       getHelp: "Bantuan",
     },
