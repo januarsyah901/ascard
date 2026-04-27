@@ -113,7 +113,7 @@ export default function SimulationLab() {
     setTimeout(() => {
       clearInterval(spinInterval);
       
-      const isWin = Math.random() < 0.04; // 4% hit rate to emphasize loss
+      const isWin = Math.random() < 0.05; // 5% hit rate to emphasize loss
       let winAmount = 0;
       
       if (isWin) {
@@ -144,18 +144,19 @@ export default function SimulationLab() {
         return next;
       });
 
-      setSpinId(prevId => {
-        const nextId = prevId + 1;
-        setLogs(prevLogs => [
-          {
-            id: nextId,
-            type: isWin ? 'win' : 'loss',
-            amount: isWin ? winAmount : netChange
-          },
-          ...prevLogs
-        ].slice(0, 3));
-        return nextId;
-      });
+      const currentIteration = spinId;
+      setSpinId(prevId => prevId + 1);
+      
+      const logId = Date.now() + Math.random();
+      setLogs(prevLogs => [
+        {
+          id: logId,
+          iteration: currentIteration,
+          type: isWin ? 'win' : 'loss',
+          amount: isWin ? winAmount : netChange
+        },
+        ...prevLogs
+      ].slice(0, 3));
       
       // Update RNG Data stream final state
       setRngData([
@@ -173,7 +174,7 @@ export default function SimulationLab() {
       setIsSpinning(false);
     }, 800); // 800ms fake delay
     
-  }, [balance, isSpinning]);
+  }, [balance, isSpinning, currentBid, spinId]);
 
   const handleTopup = (amount) => {
     setBalance(prev => prev + amount);
@@ -216,14 +217,17 @@ export default function SimulationLab() {
           <span className="text-[9px] text-neutral-400 font-medium uppercase tracking-widest block mt-1">DATA LAB V1.0.4</span>
         </div>
         <nav className="flex-grow flex flex-col mt-4">
+          <Link to="/" className="text-neutral-500 px-6 py-4 hover:bg-neutral-100 transition-colors duration-150 flex items-center gap-3 text-[11px] uppercase tracking-tight">
+            <span className="material-symbols-outlined text-sm">home</span> {t.nav.home}
+          </Link>
           <Link to="/simulation" className="bg-neutral-200 text-black font-bold px-6 py-4 transition-colors duration-150 flex items-center gap-3 text-[11px] uppercase tracking-tight">
             <span className="material-symbols-outlined text-sm">analytics</span> {t.nav.simulator}
           </Link>
+          <Link to="/knowledge-base" className="text-neutral-500 px-6 py-4 hover:bg-neutral-100 transition-colors duration-150 flex items-center gap-3 text-[11px] uppercase tracking-tight">
+            <span className="material-symbols-outlined text-sm">menu_book</span> {t.nav.articles || t.nav.library}
+          </Link>
           <Link to="/intervention" className="text-neutral-500 px-6 py-4 hover:bg-neutral-100 transition-colors duration-150 flex items-center gap-3 text-[11px] uppercase tracking-tight">
             <span className="material-symbols-outlined text-sm">science</span> {t.nav.logic}
-          </Link>
-          <Link to="/knowledge-base" className="text-neutral-500 px-6 py-4 hover:bg-neutral-100 transition-colors duration-150 flex items-center gap-3 text-[11px] uppercase tracking-tight">
-            <span className="material-symbols-outlined text-sm">visibility</span> {t.nav.library}
           </Link>
         </nav>
         <div className="p-6 space-y-6">
@@ -341,7 +345,7 @@ export default function SimulationLab() {
               <div className="space-y-2 text-[10px] font-medium font-mono text-neutral-600 flex-grow overflow-y-auto no-scrollbar">
                 {logs.map((log) => (
                   <div key={log.id} className="flex justify-between border-b border-black/5 pb-1">
-                    <span>#{log.id}</span>
+                    <span>#{log.iteration}</span>
                     <span className={log.type === 'loss' ? 'text-error' : 'text-black font-bold'}>
                       {log.type.toUpperCase()} ({log.amount > 0 ? '+' : ''}{formatValue(log.amount)})
                     </span>
@@ -444,10 +448,10 @@ export default function SimulationLab() {
               <p className="text-neutral-500 leading-relaxed italic border-l-4 border-primary pl-4">
                 "{t.simulation.realityCheckDetail}"
               </p>
-              <div className="bg-surface-container-low p-4">
+               <div className="bg-surface-container-low p-4">
                 <p className="text-[10px] font-black uppercase tracking-widest text-neutral-400 mb-1">Estimated Reality Impact</p>
-                <p className="text-2xl font-black text-error">-{formatValue(Math.abs(totalLoss + 12450))}</p>
-              </div>
+                <p className="text-2xl font-black text-error">-{formatValue(Math.abs(totalLoss + 5000))}</p>
+               </div>
             </div>
             <div className="flex flex-col gap-4">
               <button 
