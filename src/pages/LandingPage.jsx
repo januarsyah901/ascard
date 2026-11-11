@@ -1,165 +1,28 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-import { Link } from 'react-router-dom';
+import { Gem, Guardian } from '../components/OlympusArtwork';
 import { useLanguage } from '../context/LanguageContext';
 import { useCurrency } from '../context/CurrencyContext';
+import '../App.css';
+
+const symbols = [0,6,7,5,1,2,1,3,3,3,1,4,5,4,0,5,5,2,1,4,1,7,7,4,5,6,2,0,5,2];
 
 export default function LandingPage() {
-  const { t } = useLanguage();
+  const { lang } = useLanguage();
   const { formatValue } = useCurrency();
-  
-  return (
-    <>
-      <Navigation />
-      <main className="pt-16">
-        {/* Hero Section */}
-        <section className="relative min-h-[921px] flex items-center px-6 md:px-12 bg-surface">
-          <div className="grid grid-cols-1 lg:grid-cols-12 w-full max-w-7xl mx-auto gap-12 py-20">
-            <div className="lg:col-span-8 flex flex-col justify-center">
-              <div className="inline-block px-3 py-1 bg-primary text-on-primary text-[10px] font-bold tracking-[0.2em] uppercase mb-6 self-start">
-                {t.landing.researchLab}
-              </div>
-              <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-primary leading-[0.85] uppercase mb-8">
-                {t.landing.heroTitle}
-              </h1>
-              <p className="text-lg md:text-xl text-on-surface-variant max-w-2xl font-light leading-relaxed mb-10 border-l-4 border-primary pl-6">
-                {t.landing.heroDesc}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/simulation">
-                  <button className="monolith-gradient px-10 py-5 text-on-primary font-bold tracking-tighter uppercase font-headline text-sm hover:opacity-90 transition-opacity w-full">
-                    {t.landing.ctaSimulation}
-                  </button>
-                </Link>
-                <Link to="/knowledge-base">
-                  <button className="px-10 py-5 bg-transparent border-2 border-primary text-primary font-bold tracking-tighter uppercase font-headline text-sm hover:bg-surface-container transition-colors w-full">
-                    {t.landing.ctaMethodology}
-                  </button>
-                </Link>
-              </div>
-            </div>
-            <div className="lg:col-span-4 relative flex items-center justify-center">
-              <div className="w-full aspect-square bg-surface-container-highest relative overflow-hidden">
-                <img className="w-full h-full object-cover grayscale mix-blend-multiply opacity-80" alt="abstract high-contrast digital grid" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARIdrAG5_Z3f9WjRKuFOMi-W5CopaPGAZhrtvCFO3bUa8-rtyFKNzCqiGptX_thZjk69U1X4seioXsGke0wLvw4FaeQaWrsP_m-56qdaXC4e02xkKNx6y9O6HHXtymjJ9S-PkjYVGFRMZ3DaaIX1Wrc3e5VsOY-mDiMRDW1KpYcC0n231KeR-01zek-V7HpM-REu8ifv8xDEm9gIJ86-EAFZuerftxjs9sjBipyQ6UgP1Xpz_5SVcPxIC98-Bkzz52A4gB2ccLofkH" />
-                <div className="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
-              </div>
-              <div className="absolute -bottom-6 -left-6 bg-primary p-6 text-on-primary w-48 hidden md:block">
-                <p className="text-[10px] tracking-widest uppercase mb-2 opacity-60">{t.landing.systemStatus}</p>
-                <p className="text-xs font-bold leading-tight uppercase font-headline">{t.landing.activeEncrypted}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Stats Section (Empirical Monolith Bento Grid) */}
-        <section className="py-24 px-6 md:px-12 bg-surface-container-low">
-          <div className="max-w-7xl mx-auto">
-            <div className="mb-16">
-              <h2 className="text-sm font-bold tracking-[0.3em] uppercase text-outline mb-2">{t.landing.empiricalData}</h2>
-              <div className="h-1 w-20 bg-primary"></div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
-              {/* Main Stat Card */}
-              <div className="md:col-span-2 bg-surface p-12 flex flex-col justify-between min-h-[400px] border border-outline-variant/10">
-                <div>
-                  <span className="material-symbols-outlined text-4xl mb-6 block text-primary">analytics</span>
-                  <h3 className="text-3xl font-bold tracking-tighter uppercase mb-4">{t.landing.probTitle}</h3>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className="text-7xl md:text-9xl font-black text-primary tracking-tighter leading-none">{t.landing.probValue}</span>
-                  <p className="text-xl md:text-2xl font-medium text-on-surface uppercase tracking-tight max-w-md">
-                    {t.landing.probDesc}
-                  </p>
-                </div>
-              </div>
-              {/* Side Stat Column */}
-              <div className="flex flex-col gap-1">
-                <div className="bg-primary p-8 flex flex-col justify-center flex-1">
-                  <p className="text-on-primary-fixed-variant text-[10px] font-bold tracking-widest uppercase mb-2">{t.landing.houseEdge}</p>
-                  <p className="text-4xl font-black text-on-primary tracking-tighter mb-4">97.4%</p>
-                  <p className="text-xs text-on-primary-fixed-variant leading-relaxed opacity-70">
-                    {t.landing.houseEdgeDesc}
-                  </p>
-                </div>
-                <div className="bg-surface-container-highest p-8 flex flex-col justify-center flex-1">
-                  <span className="material-symbols-outlined text-primary mb-4" style={{ fontVariationSettings: "'FILL' 1" }}>trending_down</span>
-                  <p className="text-2xl font-bold text-primary tracking-tighter uppercase">{t.landing.cognitiveTitle}</p>
-                  <p className="text-xs text-on-surface-variant leading-relaxed mt-2 uppercase font-medium">
-                    {t.landing.cognitiveDesc}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Reality Check Section */}
-        <section className="py-32 px-6 md:px-12 bg-surface">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            <div className="w-full md:w-1/2">
-              <img className="w-full grayscale border-l-[12px] border-primary" alt="microscopic detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCdPsqVrsaGPSWnqjapXd_GCFL9aXSSOmD9R-U7SAqxQiXldlrtzifnAVRfIVb1Jbro03-Dns1I1ACYvFVxSh7KcB74u5IWWWaV87gxmmUi9VZmcV4T1bdv7lmWdGSGI8bkqQKzOLxpVP1udg98rFJQ-vdZk3IjothJC43-ANepxOoLxn3UtbzF-eow4mO-SiH2KH1GQjZ77lw2TKEzA8IYXDEDUFsithnAVJJhLzV6Z4hxnAXCoHKIQL7F_FQh5HWe01leS58RymE" />
-            </div>
-            <div className="w-full md:w-1/2">
-              <h2 className="text-5xl font-black tracking-tighter uppercase mb-8 leading-none">{t.landing.whyFooled}</h2>
-              <div className="space-y-8">
-                <div className="group">
-                  <div className="flex items-start gap-4 mb-2">
-                    <span className="text-sm font-black text-primary bg-surface-container px-2 py-1">01</span>
-                    <h4 className="text-lg font-bold uppercase tracking-tight">{t.landing.point1Title}</h4>
-                  </div>
-                  <p className="text-on-surface-variant text-sm leading-relaxed pl-10">
-                    {t.landing.point1Desc}
-                  </p>
-                </div>
-                <div className="group">
-                  <div className="flex items-start gap-4 mb-2">
-                    <span className="text-sm font-black text-primary bg-surface-container px-2 py-1">02</span>
-                    <h4 className="text-lg font-bold uppercase tracking-tight">{t.landing.point2Title}</h4>
-                  </div>
-                  <p className="text-on-surface-variant text-sm leading-relaxed pl-10">
-                    {t.landing.point2Desc}
-                  </p>
-                </div>
-                <div className="group">
-                  <div className="flex items-start gap-4 mb-2">
-                    <span className="text-sm font-black text-primary bg-surface-container px-2 py-1">03</span>
-                    <h4 className="text-lg font-bold uppercase tracking-tight">{t.landing.point3Title}</h4>
-                  </div>
-                  <p className="text-on-surface-variant text-sm leading-relaxed pl-10">
-                    {t.landing.point3Desc.replace('{win}', formatValue(0.50)).replace('{bet}', formatValue(1.00))}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Final CTA Monolith */}
-        <section className="py-24 px-6 md:px-12 bg-primary">
-          <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-on-primary uppercase mb-12">
-              {t.landing.finalTitle}
-            </h2>
-            <div className="flex flex-col md:flex-row justify-center gap-6">
-              <Link to="/simulation">
-                <button className="bg-surface text-primary px-12 py-6 font-black tracking-widest uppercase text-base hover:bg-surface-dim transition-colors w-full">
-                  {t.landing.finalDashboard}
-                </button>
-              </Link>
-              <Link to="/intervention">
-                <button className="border-2 border-on-primary text-on-primary px-12 py-6 font-black tracking-widest uppercase text-base hover:bg-on-primary hover:text-primary transition-colors w-full">
-                  {t.landing.finalConsult}
-                </button>
-              </Link>
-            </div>
-            <p className="mt-12 text-[10px] text-on-primary/40 tracking-[0.4em] uppercase font-bold">
-              DATA DRIVEN • CLINICALLY VALIDATED • NON-PROFIT MISSION
-            </p>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </>
-  );
+  const say = (id, en) => lang === 'en' ? en : id;
+  return <div className="bi-lobby ol-lobby"><Navigation/><main id="main-content" className="pt-16">
+    <div className="ol-education-strip">◇ {say('BONGKAR ILUSI — PLATFORM EDUKASI ANTI-JUDI', 'BONGKAR ILUSI — ANTI-GAMBLING EDUCATION')} <span>• {say('TANPA DEPOSIT · TANPA UANG ASLI', 'NO DEPOSITS · NO REAL MONEY')}</span></div>
+    <section className="ol-temple" aria-labelledby="ol-heading"><div className="ol-clouds"/><div className="ol-column ol-column-left"/><div className="ol-column ol-column-right"/>
+      <div className="ol-stage-heading"><span>✦ {say('DI BALIK GEMERLAP, ADA MATEMATIKA', 'BEHIND THE GLAMOUR LIES MATHEMATICS')} ✦</span><h1 id="ol-heading">{say('BONGKAR ILUSI', 'BONGKAR ILUSI')}</h1><p>{say('Tampilan yang menggoda. Kenyataan yang berbeda.', 'An alluring appearance. A different reality.')}</p></div>
+      <div className="ol-stage">
+        <aside className="ol-left-panels"><Link to="/simulation" className="ol-feature-panel"><span className="ol-mini-label">PROBABILITY LAB</span><strong>{say('COBA', 'TRY')}<br/>{say('SIMULASI', 'SIMULATION')}</strong><small>{say('100% VIRTUAL', '100% VIRTUAL')}</small><span className="ol-panel-action">{say('MASUK LAB', 'ENTER LAB')} →</span></Link><Link to="/knowledge-base" className="ol-feature-panel ol-panel-pink"><span className="ol-mini-label">KNOWLEDGE BASE</span><strong>{say('BONGKAR', 'UNCOVER')}<br/>{say('MITOSNYA', 'THE MYTHS')}</strong><small>{say('BACA FAKTANYA', 'READ THE FACTS')}</small><span className="ol-panel-action">{say('BUKA ARTIKEL', 'READ ARTICLES')} →</span></Link><div className="ol-side-note"><span>ϟ</span><b>{say('KENALI ILUSINYA', 'KNOW THE ILLUSION')}</b><p>{say('Simbol di layar ini dekoratif. Bukan hasil putaran dan bukan hadiah.', 'These symbols are decorative. They are not spin results or prizes.')}</p></div></aside>
+        <div className="ol-game-frame"><div className="ol-corner ol-corner-a">◆</div><div className="ol-corner ol-corner-b">◆</div><div className="ol-board-caption">{say('LAYAR ILUSTRASI · BUKAN PERMAINAN AKTIF', 'ILLUSTRATIVE DISPLAY · NOT AN ACTIVE GAME')}</div><div className="ol-demo-grid" aria-hidden="true">{symbols.map((kind, i) => <div className="ol-symbol-cell" key={i}><Gem kind={kind}/></div>)}</div><div className="ol-board-bottom">✦ {say('PAHAMI PELUANG. KENALI JEBAKANNYA.', 'UNDERSTAND THE ODDS. RECOGNIZE THE TRAP.')} ✦</div></div>
+        <aside className="ol-character-panel"><div className="ol-game-title"><span>GATES OF</span><strong>ILLUSION</strong><b>EDUCATION</b></div><Guardian/><div className="ol-character-caption">{say('GEMERLAPNYA NYATA.', 'THE GLAMOUR IS REAL.')}<br/><strong>{say('JANJINYA BELUM TENTU.', 'THE PROMISE MAY NOT BE.')}</strong></div></aside>
+      </div>
+      <div className="ol-control-bar"><div><small>{say('KREDIT ILUSTRASI', 'ILLUSTRATIVE CREDIT')}</small><strong>{formatValue(333.333333)}</strong><span>{say('Saldo virtual • Tidak dapat diuangkan', 'Virtual balance • Cannot be cashed out')}</span></div><div className="ol-control-message"><strong>{say('BUKAN SOAL HOKI.', 'IT’S NOT ABOUT LUCK.')}</strong><span>{say('Yuk, lihat cara sistemnya bekerja.', 'See how the system works.')}</span></div><Link to="/simulation" className="ol-start-control" aria-label={say('Buka simulator edukasi', 'Open educational simulator')}><span aria-hidden="true">⟳</span><b>{say('MULAI SIMULASI', 'START SIMULATION')}</b></Link></div>
+    </section>
+    <div className="ol-bottom-content"><section className="ol-reality-banner"><div><span className="ol-mini-label">REALITY CHECK</span><h2>{say('Terlihat seperti slot. Dibuat untuk membuka mata.', 'Looks like a slot. Built to open your eyes.')}</h2><p>{say('Tidak ada deposit, hadiah uang, atau janji kemenangan. Gunakan simulator untuk mengamati saldo virtual, lalu pelajari probabilitas dan bias yang membentuk keputusan.', 'No deposits, cash prizes, or winning promises. Use the simulator to observe a virtual balance, then explore probability and the biases behind decisions.')}</p></div><Link to="/intervention" className="ol-gold-button">{say('AMBIL JEDA & REFLEKSI', 'TAKE A BREAK & REFLECT')} →</Link></section><div className="ol-learning-grid">{[['01','/simulation',say('Masuk ke laboratorium', 'Enter the laboratory'),say('Amati hasil putaran dan riwayat saldo virtual.', 'Observe spin results and virtual balance history.')],['02','/knowledge-base',say('Baca di balik simbol', 'Read behind the symbols'),say('Pelajari matematika dan psikologi perjudian.', 'Explore the mathematics and psychology of gambling.')],['03','/intervention',say('Putus rantai ilusinya', 'Break the illusion'),say('Kenali mitos dan ambil ruang untuk berpikir.', 'Recognize myths and make room to reflect.')]].map(([n,path,title,text])=><Link to={path} className="ol-learning-card" key={n}><span>{n}</span><h3>{title} ↗</h3><p>{text}</p></Link>)}</div></div>
+  </main><Footer/></div>;
 }

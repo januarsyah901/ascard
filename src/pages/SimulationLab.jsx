@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Gem } from '../components/OlympusArtwork';
+import '../App.css';
 
 const GRID_IMAGES = [
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCK1oa99_FjjSkbsHXgmNz3FZSpAXn_gkQdDyJlfQn6urldOQMga25FZQYotbDJdDZVIaLlTG4mjvZ4w5OPGkwNmFzO6m2Ct11Sb-2UBZhLNvv2GthNisvwXB_oaUTqaDbNyxMu6tr8loe0E2J9T1E6y-GfvCfnr9Fn8tHe6iS7scpB4cRupX8nxSxr72rGfh8lAOS1AWzp-bx7dKAn16_i1zmX0mwuB0t4t08kYyt0JdOAi8lhfz_TpyjsV7CFcQ0OmQGNFFc5Ukh6",
@@ -209,7 +211,7 @@ export default function SimulationLab() {
   }
 
   return (
-    <div className="flex bg-surface" style={{ minHeight: '100vh' }}>
+    <div className="ol-simulation flex bg-surface" style={{ minHeight: '100vh' }}>
       {/* SideNavBar (Left Fixed) */}
       <aside className="hidden lg:flex flex-col w-64 bg-neutral-50 border-r border-outline-variant/30 overflow-y-auto shrink-0">
         <div className="p-6">
@@ -260,10 +262,10 @@ export default function SimulationLab() {
           </div>
           
           {/* Simulation Grid (Mahjong Style - Desaturated) */}
-          <div className={`grid grid-cols-5 gap-2 aspect-[5/4] bg-surface-container-low p-4 shadow-inner transition-opacity duration-150 ${isSpinning ? 'opacity-50' : 'opacity-100'}`}>
+          <div className={`ol-live-grid grid grid-cols-5 gap-2 aspect-[5/4] bg-surface-container-low p-4 shadow-inner transition-opacity duration-150 ${isSpinning ? 'opacity-50' : 'opacity-100'}`}>
             {gridImages.map((src, idx) => (
               <div key={idx} className={`bg-white flex items-center justify-center p-4 ${idx % 3 === 0 ? 'border-2 border-black/10' : ''}`}>
-                <img alt={`Grid item ${idx}`} className={`grayscale ${idx % 2 === 0 ? 'opacity-40' : 'opacity-70'}`} src={src} />
+                <Gem kind={GRID_IMAGES.indexOf(src) % 8} />
               </div>
             ))}
           </div>

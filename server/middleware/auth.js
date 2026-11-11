@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret';
+import { config } from '../config.js';
 
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -8,13 +8,11 @@ const authMiddleware = (req, res, next) => {
     return res.status(401).json({ message: 'No token provided' });
   }
 
-  const token = authHeader.split(' ')[1];
-
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(authHeader.split(' ')[1], config.jwtSecret);
     req.adminId = decoded.id;
     next();
-  } catch (error) {
+  } catch {
     res.status(401).json({ message: 'Invalid token' });
   }
 };

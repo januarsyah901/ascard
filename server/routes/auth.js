@@ -1,48 +1,53 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import rateLimit from 'express-rate-limit';
 import { prisma } from '../db.js';
+import { config } from '../config.js';
+import auth from '../middleware/auth.js';
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret';
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 5,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+  message: { message: 'Too many login attempts. Try again in 15 minutes.' },
+});
 
 // Admin Login
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+router.post('/login', loginLimiter, async (req, res, next) => {
+  const { username, password } = req.body ?? {};
+  if (typeof username !== 'string' || typeof password !== 'string') {
+    return res.status(400).json({ message: 'Username and password are required' });
+  }
 
   try {
-    const admin = await prisma.admin.findUnique({
-      where: { username }
-    });
-
-    if (!admin) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-
-    const isMatch = await bcrypt.compare(password, admin.password);
+    const admin = await prisma.admin.findUnique({ where: { username } });
+    const isMatch = admin && (await bcrypt.compare(password, admin.password));
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ id: admin.id }, JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({ id: admin.id }, config.jwtSecret, { expiresIn: '1d' });
     res.json({ token, admin: { id: admin.id, username: admin.username } });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    next(error);
   }
 });
 
-// Seed Initial Admin (for testing)
-router.post('/seed', async (req, res) => {
-  const { username, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
-  
+// Verify current session
+router.get('/me', auth, async (req, res, next) => {
   try {
-    const admin = await prisma.admin.create({
-      data: { username, password: hashedPassword }
+    const admin = await prisma.admin.findUnique({
+      where: { id: req.adminId },
+      select: { id: true, username: true },
     });
-    res.json({ message: 'Admin seeded successfully', admin: { id: admin.id, username: admin.username } });
+    if (!admin) return res.status(401).json({ message: 'Invalid token' });
+    res.json({ admin });
   } catch (error) {
-    res.status(400).json({ message: 'Seed failed', error: error.message });
+    next(error);
   }
 });
 

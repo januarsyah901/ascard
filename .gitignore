@@ -24,3 +24,12 @@ dist-ssr
 *.sw?
 
 /src/generated/prisma
+
+# Secrets
+.env
+.env.*
+!.env.example
+!.env.production.example
+
+# Local UI backups
+.backup-ui-*/

@@ -5,13 +5,18 @@ import bcrypt from 'bcryptjs';
 async function main() {
   console.log('Starting seeding...');
 
-  // Create Admin
-  const hashedPassword = await bcrypt.hash('password123', 10);
+  // Create Admin (credentials from env; never hardcoded)
+  const username = process.env.ADMIN_USERNAME || 'admin';
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password || password.length < 12) {
+    throw new Error('Set ADMIN_PASSWORD (min. 12 characters) before seeding');
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
   const admin = await prisma.admin.upsert({
-    where: { username: 'admin' },
+    where: { username },
     update: {},
     create: {
-      username: 'admin',
+      username,
       password: hashedPassword,
     },
   });

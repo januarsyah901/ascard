@@ -73,3 +73,14 @@
 .monolith-gradient {
   background: linear-gradient(180deg, #000000 0%, #3b3b3b 100%);
 }
+
+/* Shared interaction polish; page-specific palettes stay in their own scope. */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid #d6a63e;
+  outline-offset: 4px;
+}
+.bi-lobby { font-family: 'Public Sans', system-ui, sans-serif; }
+.bi-lobby h1, .bi-lobby h2, .bi-lobby h3 { font-family: 'Public Sans', system-ui, sans-serif; text-wrap: balance; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

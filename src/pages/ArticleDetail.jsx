@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../lib/api';
 import { useParams, Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
@@ -10,8 +11,8 @@ const ArticleDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5001/api/articles/${id}`)
-      .then(res => res.json())
+    fetch(apiUrl(`/articles/${id}`))
+      .then(res => (res.ok ? res.json() : null))
       .then(data => {
         setArticle(data);
         setLoading(false);

@@ -1,28 +1,41 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { apiUrl } from '../lib/api';
 
 const AuthContext = createContext();
 
+const readToken = () => {
+  try { return localStorage.getItem('admin_token'); } catch { return null; }
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('admin_token'));
-  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState(readToken);
+  const [loading, setLoading] = useState(Boolean(readToken()));
 
   useEffect(() => {
-    if (token) {
-      // In a real app, verify token with backend here
-      setUser({ role: 'admin' }); // Mock user for now
-    }
-    setLoading(false);
+    if (!token) return;
+    let cancelled = false;
+    fetch(apiUrl('/auth/me'), { headers: { Authorization: `Bearer ${token}` } })
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error('unauthorized'))))
+      .then((data) => { if (!cancelled) setUser(data.admin); })
+      .catch(() => {
+        if (cancelled) return;
+        try { localStorage.removeItem('admin_token'); } catch { /* ignore */ }
+        setToken(null);
+        setUser(null);
+      })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
   }, [token]);
 
   const login = (newToken, userData) => {
-    localStorage.setItem('admin_token', newToken);
-    setToken(newToken);
+    try { localStorage.setItem('admin_token', newToken); } catch { /* ignore */ }
     setUser(userData);
+    setToken(newToken);
   };
 
   const logout = () => {
-    localStorage.removeItem('admin_token');
+    try { localStorage.removeItem('admin_token'); } catch { /* ignore */ }
     setToken(null);
     setUser(null);
   };
@@ -34,4 +47,5 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

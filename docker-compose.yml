@@ -1,0 +1,42 @@
+# Production stack. Joins the shared "gateway-net" network so caddy-proxy can reach it.
+# Run with: docker compose --env-file .env.production up -d --build
+services:
+  ascard-app:
+    build: .
+    image: ascard-app:latest
+    container_name: ascard-app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET}
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-ascard}:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@ascard-db:5432/${POSTGRES_DB:-ascard}
+    depends_on:
+      ascard-db:
+        condition: service_healthy
+    networks: [gateway-net, internal]
+
+  ascard-db:
+    image: postgres:16-alpine
+    container_name: ascard-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ascard}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-ascard}
+    volumes:
+      - ascard-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [internal]
+
+volumes:
+  ascard-db-data:
+
+networks:
+  internal:
+  gateway-net:
+    external: true

@@ -1,79 +1,32 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { useCurrency } from '../context/CurrencyContext';
+import '../App.css';
 
 export default function Navigation() {
   const { lang, t, toggleLanguage } = useLanguage();
   const { currency, toggleCurrency } = useCurrency();
-  
-  const navLinkStyle = ({ isActive }) => 
-    `transition-all duration-200 font-bold tracking-tighter uppercase font-headline text-sm pb-1 ${
-      isActive ? 'text-black border-b-2 border-black' : 'text-neutral-500 hover:text-black'
-    }`;
-
-  const ToggleSwitch = ({ value, options, onChange, width = "w-20" }) => {
-    const activeIndex = options.indexOf(value);
-    return (
-      <div 
-        onClick={onChange}
-        className={`relative flex items-center bg-neutral-100 p-1 cursor-pointer ${width} h-8 select-none border border-black/5 hover:border-black/20 transition-colors`}
-      >
-        <div 
-          className="absolute h-6 bg-black transition-all duration-300 ease-out shadow-sm"
-          style={{ 
-            width: 'calc(50% - 4px)',
-            left: activeIndex === 0 ? '4px' : 'calc(50%)'
-          }}
-        />
-        {options.map((opt, i) => (
-          <div 
-            key={opt}
-            className={`relative z-10 flex-1 text-center text-[9px] font-black tracking-widest uppercase transition-colors duration-300 ${
-              activeIndex === i ? 'text-white' : 'text-neutral-400'
-            }`}
-          >
-            {opt}
-          </div>
-        ))}
-      </div>
-    );
-  };
-
+  const { pathname } = useLocation();
+  const [open, setOpen] = useState(false);
+  const links = [['/', t.nav.home], ['/simulation', t.nav.simulator], ['/knowledge-base', t.nav.articles], ['/intervention', t.nav.logic]];
+  const renderLinks = () => links.map(([path, label]) => <NavLink key={path} to={path} end={path === '/'} onClick={() => setOpen(false)} className={({ isActive }) => `bi-nav-link ${isActive ? 'bi-nav-active' : ''}`}>{label}</NavLink>);
   return (
-    <nav className="fixed top-0 w-full z-50 h-16 bg-white/80 backdrop-blur-xl border-b border-black/5">
-      <div className="flex justify-between items-center px-6 md:px-12 w-full mx-auto h-full">
-        <div className="text-xl font-black tracking-tighter text-black uppercase font-headline">
-          <Link to="/">BONGKAR ILUSI</Link>
-        </div>
-        <div className="hidden md:flex items-center gap-8">
-          <NavLink to="/" className={navLinkStyle}>{t.nav.home}</NavLink>
-          <NavLink to="/simulation" className={navLinkStyle}>{t.nav.simulator}</NavLink>
-          <NavLink to="/knowledge-base" className={navLinkStyle}>{t.nav.articles}</NavLink>
-          <NavLink to="/intervention" className={navLinkStyle}>{t.nav.logic}</NavLink>
-        </div>
-        <div className="flex items-center gap-4">
-          <Link to="/intervention">
-            <button className="px-6 py-2 bg-primary text-on-primary font-bold tracking-tighter uppercase font-headline text-xs hover:bg-primary-fixed-dim transition-all">
-              {t.nav.getHelp}
-            </button>
-          </Link>
-          <div className="flex items-center gap-2 ml-2">
-            <ToggleSwitch 
-              value={lang.toUpperCase()} 
-              options={['ID', 'EN']} 
-              onChange={toggleLanguage} 
-              width="w-24"
-            />
-            <ToggleSwitch 
-              value={currency} 
-              options={['IDR', 'USD']} 
-              onChange={toggleCurrency} 
-              width="w-24"
-            />
+    <>
+      {pathname === '/' && <a href="#main-content" className="bi-skip">{lang === 'en' ? 'Skip to content' : 'Langsung ke konten'}</a>}
+      <header className="bi-navigation fixed top-0 inset-x-0 z-50" onKeyDown={event => { if (event.key === 'Escape') { setOpen(false); event.currentTarget.querySelector('[aria-controls="bi-mobile-menu"]')?.focus(); } }}>
+        <nav aria-label={lang === 'en' ? 'Main navigation' : 'Navigasi utama'} className="bi-nav-inner">
+          <Link to="/" className="bi-brand" onClick={() => setOpen(false)}><span className="bi-brand-mark" aria-hidden="true">B<span>i</span></span><span>BONGKAR <b>ILUSI</b><small>{lang === 'en' ? 'ANTI-GAMBLING EDUCATION' : 'EDUKASI ANTI-JUDI'}</small></span></Link>
+          <div className="hidden lg:flex items-center gap-5">{renderLinks()}</div>
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={toggleLanguage} className="bi-toggle" aria-label={lang === 'en' ? 'Switch to Indonesian' : 'Ganti ke bahasa Inggris'}>{lang.toUpperCase()} <span aria-hidden="true">⌄</span></button>
+            <button type="button" onClick={toggleCurrency} className="bi-toggle" aria-label={lang === 'en' ? `Currency ${currency}; switch currency` : `Mata uang ${currency}; ganti mata uang`}>{currency}</button>
+            <Link to="/intervention" className="bi-button bi-button-red hidden sm:inline-flex">{t.nav.getHelp}</Link>
+            <button type="button" className="bi-toggle lg:hidden" aria-expanded={open} aria-controls="bi-mobile-menu" aria-label={lang === 'en' ? 'Toggle navigation' : 'Buka atau tutup navigasi'} onClick={() => setOpen(value => !value)}>{open ? '✕' : '☰'}</button>
           </div>
-        </div>
-      </div>
-    </nav>
+        </nav>
+        {open && <div id="bi-mobile-menu" className="bi-mobile-menu lg:hidden">{renderLinks()}<Link to="/intervention" onClick={() => setOpen(false)} className="bi-button bi-button-red">{t.nav.getHelp}</Link></div>}
+      </header>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { apiUrl } from '../lib/api';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
@@ -9,10 +10,10 @@ export default function KnowledgeBase() {
   const [dynamicArticles, setDynamicArticles] = React.useState([]);
 
   React.useEffect(() => {
-    fetch('http://localhost:5001/api/articles')
+    fetch(apiUrl('/articles'))
       .then(res => res.json())
       .then(data => {
-        setDynamicArticles(data.filter(a => a.published));
+        setDynamicArticles(Array.isArray(data) ? data : []);
       })
       .catch(err => console.error('Error fetching articles:', err));
   }, []);

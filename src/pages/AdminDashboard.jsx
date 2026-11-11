@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -23,13 +24,19 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!token) navigate('/admin/login');
+    if (!token) {
+      navigate('/admin/login');
+      return;
+    }
     fetchArticles();
   }, [token]);
 
   const fetchArticles = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/articles');
+      const res = await fetch(apiUrl('/articles/admin/all'), {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.status === 401) { logout(); return; }
       const data = await res.json();
       setArticles(data);
     } catch (err) {
@@ -42,8 +49,8 @@ const AdminDashboard = () => {
     setLoading(true);
     const method = currentArticle.id ? 'PUT' : 'POST';
     const url = currentArticle.id 
-      ? `http://localhost:5001/api/articles/${currentArticle.id}` 
-      : 'http://localhost:5001/api/articles';
+      ? apiUrl(`/articles/${currentArticle.id}`) 
+      : apiUrl('/articles');
 
     try {
       const res = await fetch(url, {
@@ -55,7 +62,13 @@ const AdminDashboard = () => {
         body: JSON.stringify(currentArticle)
       });
 
-      if (res.ok) {
+      if (res.status === 401) { logout(); return; }
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        window.alert(data.message || 'Failed to save article');
+        return;
+      }
+      {
         setIsEditing(false);
         setCurrentArticle({ title: '', content: '', category: '', published: false });
         fetchArticles();
@@ -70,7 +83,7 @@ const AdminDashboard = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this article?')) return;
     try {
-      const res = await fetch(`http://localhost:5001/api/articles/${id}`, {
+      const res = await fetch(apiUrl(`/articles/${id}`), {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -84,6 +97,8 @@ const AdminDashboard = () => {
     setCurrentArticle(article);
     setIsEditing(true);
   };
+
+  if (!token) return null;
 
   return (
     <div className="min-h-screen bg-background text-on-surface flex font-body">
