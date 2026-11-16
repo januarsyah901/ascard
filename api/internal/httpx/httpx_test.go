@@ -57,7 +57,10 @@ func TestDecodeObject(t *testing.T) {
 
 func TestFields(t *testing.T) {
 	f := Fields{}
-	_ = json.Unmarshal([]byte(`{"s":"x","n":1,"t":true,"ts":"true"}`), &f)
+	_ = json.Unmarshal([]byte(`{"s":"x","n":1,"t":true,"ts":"true","z":null}`), &f)
+	if _, ok := f.String("z"); ok {
+		t.Fatal("null must not be a string")
+	}
 	if s, ok := f.String("s"); !ok || s != "x" {
 		t.Fatal("String(s)")
 	}

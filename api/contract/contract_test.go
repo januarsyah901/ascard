@@ -152,10 +152,13 @@ func do(t *testing.T, q req) response {
 	return response{Status: res.StatusCode, Header: res.Header, Body: b}
 }
 
+// randomIP returns a client address from 198.18.0.0/15 (benchmark range). It must not be
+// in a private range: the Go server trusts private ranges as proxies by default and
+// would skip the address, putting every test client into one rate-limit bucket.
 func randomIP() string {
-	b := make([]byte, 3)
+	b := make([]byte, 2)
 	_, _ = rand.Read(b)
-	return fmt.Sprintf("10.%d.%d.%d", b[0], b[1], b[2]|1)
+	return fmt.Sprintf("198.18.%d.%d", b[0], b[1]|1)
 }
 
 func wantStatus(t *testing.T, r response, status int) {

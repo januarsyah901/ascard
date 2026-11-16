@@ -4,6 +4,7 @@
 package httpx
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"io"
@@ -56,7 +57,8 @@ type Fields map[string]json.RawMessage
 // String returns the field as a string; ok is false when it is missing or not a JSON string.
 func (f Fields) String(key string) (string, bool) {
 	raw, present := f[key]
-	if !present {
+	// json.Unmarshal of null into a string is a silent no-op, but typeof null !== 'string'.
+	if !present || bytes.Equal(bytes.TrimSpace(raw), []byte("null")) {
 		return "", false
 	}
 	var s string
