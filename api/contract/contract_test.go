@@ -180,8 +180,15 @@ func wantJSONContentType(t *testing.T, r response) {
 	}
 }
 
+// login returns an admin token. With CONTRACT_MINT_TOKEN=1 it signs one directly
+// instead of calling POST /api/auth/login, so the article and platform suites can run
+// before the login endpoint exists.
 func login(t *testing.T) string {
 	t.Helper()
+	if os.Getenv("CONTRACT_MINT_TOKEN") == "1" {
+		now := time.Now()
+		return signToken(t, jwtSecret, jwt.MapClaims{"id": adminID, "iat": now.Unix(), "exp": now.Add(time.Hour).Unix()})
+	}
 	r := do(t, req{method: "POST", path: "/api/auth/login",
 		body: map[string]string{"username": adminUsername, "password": adminPassword}})
 	wantStatus(t, r, 200)

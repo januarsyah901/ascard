@@ -9,6 +9,9 @@ messages must match it exactly unless SPEC lists a deliberate change.
 - `make test` (unit + handler tests), `make vet`, `make fmt`.
 - `make contract` builds the server and runs the HTTP contract suite against it with a
   throwaway Postgres in Docker. `make contract-express` runs the same suite against Express.
+- Run only your part of the suite while other workers are still busy:
+  `CONTRACT_TEST_FLAGS='-run <regexp>' ./scripts/contract.sh go`. Add `CONTRACT_MINT_TOKEN=1` when your
+  tests need an admin token but `/api/auth/login` is not implemented in your branch (signs one directly).
 - `gofmt -s -l .` must print nothing and `go vet ./...` must be clean before you commit.
 
 ## Module layout (one package per domain under internal/)
