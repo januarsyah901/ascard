@@ -4,6 +4,7 @@ package main
 import (
 	"context"
 	"errors"
+	"flag"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -21,6 +22,11 @@ import (
 )
 
 func main() {
+	healthcheck := flag.Bool("healthcheck", false, "GET /api/health on 127.0.0.1:$PORT and exit 0 if it answers 200 (for Docker HEALTHCHECK)")
+	flag.Parse()
+	if *healthcheck {
+		os.Exit(checkHealth())
+	}
 	if err := run(); err != nil {
 		slog.Error("fatal", "err", err)
 		os.Exit(1)
@@ -82,6 +88,26 @@ func run() error {
 		}
 	}
 	return nil
+}
+
+// checkHealth is used by the container HEALTHCHECK (distroless has no shell or wget).
+func checkHealth() int {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "5001"
+	}
+	client := &http.Client{Timeout: 4 * time.Second}
+	resp, err := client.Get("http://127.0.0.1:" + port + "/api/health")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "healthcheck:", err)
+		return 1
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		fmt.Fprintln(os.Stderr, "healthcheck: status", resp.StatusCode)
+		return 1
+	}
+	return 0
 }
 
 func setupLogger(format string) {

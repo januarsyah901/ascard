@@ -10,3 +10,6 @@ Archive.zip
 landing.html
 knowledge.html
 intervention.html
+
+# Go build artefacts (Dockerfile.go)
+api/bin

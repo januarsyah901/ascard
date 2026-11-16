@@ -1,0 +1,56 @@
+name: go
+
+on:
+  push:
+    paths: ["api/**", ".github/workflows/go.yml"]
+  pull_request:
+    paths: ["api/**", ".github/workflows/go.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: go-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: api/go.mod
+          cache-dependency-path: api/go.sum
+
+      - name: gofmt
+        run: |
+          unformatted="$(gofmt -s -l .)"
+          if [ -n "$unformatted" ]; then
+            echo "gofmt -s needed on:"; echo "$unformatted"; exit 1
+          fi
+
+      - name: go vet
+        run: |
+          go vet ./...
+          go vet -tags=contract ./contract/
+
+      - name: go test
+        run: go test -race ./...
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Build SPA for the contract suite
+        working-directory: .
+        run: npm ci && npm run build
+
+      - name: HTTP contract suite (Go server + throwaway Postgres)
+        run: ./scripts/contract.sh go
