@@ -18,7 +18,7 @@ Rujukan jangka panjang: `PLAN.md`.
 ## Rabu 18 — Cutover ke Go
 - [x] Backup ulang DB live tepat sebelum ganti (`ascard_pre-go-cutover-2.sql.gz`)
 - [x] `docker compose --env-file .env.production -f docker-compose.go.yml up -d`
-- [x] Cek: health, `/`, `/simulation`, `/admin/login`, login admin, buat & hapus artikel uji, rate limit login
+- [x] Cek: health, `/`, `/simulation`, `/admin/login`, artikel, login salah → 401 (login admin + CRUD diuji di rehearsal; cek manual di live masih perlu)
 - [x] Cek dari publik (HTTPS lewat Cloudflare)
 - [x] `deploy.sh` diarahkan ke `docker-compose.go.yml`
 - **Rollback:** `docker compose --env-file .env.production -f docker-compose.yml up -d`
