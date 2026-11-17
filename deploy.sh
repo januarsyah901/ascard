@@ -15,7 +15,7 @@ if [ "${1:-}" != "--no-pull" ]; then
   git pull --ff-only origin main
 fi
 
-docker compose --env-file .env.production up -d --build
+docker compose --env-file .env.production -f docker-compose.go.yml up -d --build
 
 printf 'Waiting for ascard-app to become healthy'
 i=0
